@@ -54,9 +54,7 @@
       list-style: none;
       padding: 0;
     }
-    .talk-list li {
-      margin-bottom: .75rem;
-    }
+    .talk-list li { margin-bottom: .75rem; }
     .talk-date { font-style: italic; color: #aaa; margin-right: .5rem; }
     .talk-title { font-weight: bold; color: #fff; }
     footer {
@@ -89,7 +87,7 @@
       to {opacity:1;}
     }
 
-    /* Floating elements (equations + images) */
+    /* Floating equations/images */
     .floaty {
       position: fixed;
       color: rgba(255,255,255,0.15);
@@ -107,27 +105,17 @@
       filter: grayscale(100%);
     }
 
-    /* Big Bang effect */
-    .bigbang {
+    /* Big Bang canvas */
+    #bigbangCanvas {
       position:fixed;
       top:0; left:0;
       width:100%; height:100%;
-      background:white;
       z-index:9999;
-      opacity:1;
-      animation: flash 1s forwards, expandStars 3s forwards;
-    }
-    @keyframes flash {
-      0% {opacity:1;}
-      100% {opacity:0;}
-    }
-    @keyframes expandStars {
-      0% {}
-      100% {transform: scale(3); opacity:0;}
+      background:black;
     }
   </style>
 
-  <!-- MathJax for LaTeX rendering -->
+  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: { inlineMath: [['\\(','\\)']] },
@@ -137,17 +125,11 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-  <!-- Big Bang overlay -->
-  <div class="bigbang"></div>
+  <!-- Big Bang Canvas -->
+  <canvas id="bigbangCanvas"></canvas>
 
   <!-- Stars -->
   <div class="stars"></div>
-
-  <!-- Floating equations -->
-  <div class="floaty" style="top:20%; left:10%; animation-duration: 60s;">\( G_{\mu\nu} + \Lambda g_{\mu\nu} = 8 \pi T_{\mu\nu} \)</div>
-  <div class="floaty" style="top:70%; left:30%; animation-duration: 80s;">\( S = \int (R - 2\Lambda) \sqrt{-g} \, d^4x \)</div>
-  <div class="floaty" style="top:40%; left:75%; animation-duration: 100s;">\( ds^2 = -dt^2 + a(t)^2 d\Sigma^2 \)</div>
-  <div class="floaty" style="top:85%; left:55%; animation-duration: 90s;">\( R_{\mu\nu\rho\sigma} \)</div>
 
   <header>
     <h1>The Large-Scale Structure of Spacetime</h1>
@@ -196,7 +178,7 @@
   </footer>
 
   <script>
-    // Generate random stars
+    // STARFIELD
     const starsContainer = document.querySelector('.stars');
     for (let i = 0; i < 200; i++) {
       const s = document.createElement('div');
@@ -207,14 +189,29 @@
       starsContainer.appendChild(s);
     }
 
-    // Random floating images
-    const images = [
-      "Black_hole.jpg",
-      "Curved.jpg",
-      "Diagram.jpg"
+    // FLOATING MATH EQUATIONS
+    const mathEquations = [
+      "\\( G_{\\mu\\nu} + \\Lambda g_{\\mu\\nu} = 8 \\pi T_{\\mu\\nu} \\)",
+      "\\( S = \\int (R - 2\\Lambda) \\sqrt{-g}\\, d^4x \\)",
+      "\\( ds^2 = -dt^2 + a(t)^2 d\\Sigma^2 \\)",
+      "\\( R_{\\mu\\nu\\rho\\sigma} \\)",
+      "\\( R = g^{\\mu\\nu}R_{\\mu\\nu} \\)",
+      "\\( \\Gamma^{k}_{ij} = \\tfrac{1}{2} g^{kl}(\\partial_i g_{jl}+\\partial_j g_{il}-\\partial_l g_{ij}) \\)",
+      "\\( K(u,v) = \\frac{\\langle R(u,v)v,u \\rangle}{\\|u\\wedge v\\|^2} \\)",
+      "\\( \\nabla_{\\dot{\\gamma}} \\dot{\\gamma} = 0 \\)"
     ];
+    for (let i = 0; i < 6; i++) {
+      const eq = document.createElement('div');
+      eq.className = 'floaty';
+      eq.style.top = Math.random()*80 + '%';
+      eq.style.left = Math.random()*80 + '%';
+      eq.style.animationDuration = (70 + Math.random()*80) + 's';
+      eq.innerHTML = mathEquations[Math.floor(Math.random()*mathEquations.length)];
+      document.body.appendChild(eq);
+    }
 
-
+    // FLOATING IMAGES
+    const images = ["Black_hole.jpg","Curved.jpg","Diagram.jpg"];
     for (let i = 0; i < 3; i++) {
       const img = document.createElement('div');
       img.className = 'floaty';
@@ -224,8 +221,58 @@
       img.innerHTML = `<img src="${images[Math.floor(Math.random()*images.length)]}" alt="physics image"/>`;
       document.body.appendChild(img);
     }
+
+    // BIG BANG CANVAS ANIMATION
+    const canvas = document.getElementById("bigbangCanvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let W, H;
+    function resizeCanvas(){
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function initParticles(){
+      particles = [];
+      for(let i=0; i<1000; i++){
+        const angle = Math.random()*2*Math.PI;
+        const speed = Math.random()*4+1;
+        particles.push({
+          x: W/2, y: H/2,
+          vx: Math.cos(angle)*speed,
+          vy: Math.sin(angle)*speed,
+          r: Math.random()*2+1,
+          alpha: 1
+        });
+      }
+    }
+
+    function animate(){
+      ctx.fillStyle = "rgba(0,0,0,0.3)";
+      ctx.fillRect(0,0,W,H);
+      particles.forEach(p=>{
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.01;
+        ctx.fillStyle = "rgba(255,255,255,"+p.alpha+")";
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+        ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    initParticles();
+    animate();
+
+    // Fade out the Big Bang after 4s
+    setTimeout(()=>{ canvas.style.display="none"; },4000);
   </script>
 </body>
 </html>
+
+
 
 
