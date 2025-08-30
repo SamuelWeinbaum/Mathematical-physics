@@ -1,186 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Large-Scale Structure of Spacetime – Reading Group</title>
-
-  <!-- MathJax -->
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LSS Reading Group – Fall 2025</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: black;
       color: #eee;
-      text-align: center;
     }
+
+    /* Simple twinkling star background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation: twinkle 6s infinite alternate;
+      z-index: -1;
+      opacity: 0.7;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.7; }
+      to   { opacity: 0.3; }
+    }
+
     header {
+      text-align: center;
       padding: 1rem;
-      background: rgba(0,0,0,0.6);
+      border-bottom: 2px solid #555;
+      background: #111;
     }
     header h1 {
-      font-size: 2.5rem;
       margin: 0;
-      color: #ffcc00;
+      font-size: 2rem;
+      color: #87ceeb;
     }
     header h2 {
-      font-size: 1.3rem;
-      color: #ccc;
-      margin-top: 0.3rem;
+      margin: 0.25rem 0 0;
+      font-size: 1.2rem;
+      color: #aaa;
     }
+
     .container {
       max-width: 900px;
       margin: 2rem auto;
-      padding: 1rem;
-      background: rgba(0,0,0,0.6);
-      border-radius: 8px;
+      padding: 0 1rem;
     }
-    h3 {
-      color: #ffcc00;
+
+    .box {
+      background: #1a1a1a;
+      border: 1px solid #444;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .box h3 {
+      margin-top: 0;
       border-bottom: 1px solid #444;
       padding-bottom: 0.3rem;
+      color: #87ceeb;
     }
-    a {
-      color: #66aaff;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .talk-list {
+
+    .talk-list, .schedule-list {
       list-style: none;
       padding: 0;
     }
-    .talk-list li {
-      margin-bottom: 1rem;
+    .talk-list li, .schedule-list li {
+      margin-bottom: 0.75rem;
     }
+    .talk-title {
+      font-weight: bold;
+      color: #ffd700;
+    }
+    .talk-date {
+      font-style: italic;
+      color: #aaa;
+      margin-right: 0.5rem;
+    }
+
+    .done { color: #4CAF50; }
+    .current { color: #ffd700; font-weight: bold; }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .images img {
+      max-width: 280px;
+      border: 2px solid #444;
+    }
+
     footer {
+      text-align: center;
       margin: 2rem 0;
-      color: #888;
       font-size: 0.9rem;
-    }
-    canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      background: radial-gradient(circle, #000, #111, #000);
+      color: #777;
     }
   </style>
 </head>
 <body>
-
-  <!-- Big Bang canvas -->
-  <canvas id="bigbang"></canvas>
-
   <header>
-    <h1>The Large-Scale Structure of Spacetime</h1>
+    <h1>The Large Scale Structure of Space-Time</h1>
     <h2>Reading Group – Fall 2025</h2>
   </header>
 
   <div class="container">
-    <h3>What</h3>
-    <p>
-      This is the webpage for the Fall 2025 Reading Group on
-      <a href="The Large-Scale Structure of Spacetime.pdf" target="_blank">*The Large-Scale Structure of Spacetime*</a>
-      by Hawking & Ellis.  
-      We are McGill students studying the book as part of an independent study with Prof. A.
-    </p>
-    <p>
-      We meet twice weekly (Mondays and Fridays). One of us will present (rotating) and anyone is welcome to join.  
-      Before each meeting, we will post the topic here.
-    </p>
+    <!-- What -->
+    <div class="box">
+      <h3>What</h3>
+      <p>This is the webpage for the Fall 2025 Reading Group on Hawking & Ellis’ classic textbook <em>The Large Scale Structure of Space-Time</em>. Organized by McGill students as part of an independent study.</p>
+      <p>We meet twice a week: <strong>Monday and Friday at 4 PM</strong> in <strong>BURN 920</strong>. Each time one of us presents a section of the book, and anyone is welcome to join.</p>
+      <p>You can download the textbook here: 
+        <a href="The Large-Scale Structure of Spacetime.pdf" target="_blank">The Large Scale Structure of Space-Time (PDF)</a>.
+      </p>
+      <p>Contact: <a href="mailto:lss.reading@mcgill.ca">lss.reading@mcgill.ca</a></p>
+      <div class="images">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Penrose_Diagram_Schwarzschild.png" alt="Penrose diagram of Schwarzschild spacetime"/>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Spacetime_curvature.png/600px-Spacetime_curvature.png" alt="Curved spacetime illustration"/>
+      </div>
+    </div>
 
-    <h3>Where We Are</h3>
-    <p>
-      Currently working through Chapter 2: "Manifolds and Tensor Fields".  
-      Expect discussions involving the Einstein Field Equations:
-    </p>
-    <p>
-      \[
-        G_{\mu\nu} + \Lambda g_{\mu\nu} = 8\pi T_{\mu\nu}
-      \]
-    </p>
+    <!-- Next Talks -->
+    <div class="box">
+      <h3>Next Talks</h3>
+      <ul class="talk-list">
+        <li>
+          <span class="talk-date">09/01/2025</span>
+          <span class="talk-title">Introduction and Overview</span><br/>
+          <em>Speaker:</em> Gershon Levin<br/>
+          <em>Description:</em> Background on relativity and motivation for studying global spacetime structure. 
+        </li>
+        <li>
+          <span class="talk-date">09/05/2025</span>
+          <span class="talk-title">Chapter 1 – Manifolds and Lorentz Metrics</span><br/>
+          <em>Speaker:</em> [Friend’s Name]<br/>
+          <em>Description:</em> Differentiable manifolds, Lorentzian metrics, causal structure. 
+        </li>
+      </ul>
+    </div>
 
-    <h3>Next Talks</h3>
-    <ul class="talk-list">
-      <li>
-        <span class="talk-date">09/01/2025</span><br>
-        <em>Speaker:</em> Gershon Levin<br>
-        <em>Description:</em> Basic Lorentzian geometry, causal structure.
-      </li>
-      <li>
-        <span class="talk-date">09/05/2025</span><br>
-        <em>Speaker:</em> [Friend’s Name]<br>
-        <em>Description:</em> Raychaudhuri’s equation and focusing theorem.
-      </li>
-    </ul>
+    <!-- Reading Schedule -->
+    <div class="box">
+      <h3>Reading Schedule</h3>
+      <ul class="schedule-list">
+        <li class="done">✅ Preface & Organizational Meeting (08/29)</li>
+        <li class="current">📖 Introduction & Chapter 1 (Week of 09/01)</li>
+        <li>Chapter 2: Geodesics and Curvature</li>
+        <li>Chapter 3: Causal Structure</li>
+        <li>Chapter 4: Energy Conditions</li>
+        <li>Chapter 5: Singularities</li>
+        <li>Chapter 6: Global Structure</li>
+      </ul>
+    </div>
 
-    <h3>Past Talks</h3>
-    <ul class="talk-list">
-      <li>
-        <span class="talk-date">08/26/2025</span><br>
-        <em>Speaker:</em> Gershon Levin<br>
-        <em>Description:</em> Introduction & motivation. Discussion of singularities.
-      </li>
-    </ul>
+    <!-- Past Talks -->
+    <div class="box">
+      <h3>Past Talks</h3>
+      <ul class="talk-list">
+        <li>
+          <span class="talk-date">08/29/2025</span>
+          <span class="talk-title">Organizational Meeting</span><br/>
+          <em>Speaker:</em> Gershon & [Friend’s Name]<br/>
+          <em>Description:</em> We discussed logistics and outlined the semester’s reading schedule.
+        </li>
+      </ul>
+    </div>
   </div>
 
   <footer>
-    For details or to join, contact <a href="mailto:spacetime.reading@mcgill.ca">spacetime.reading@mcgill.ca</a>.
+    © 2025 LSS Reading Group – McGill University
   </footer>
-
-  <script>
-    // Big Bang effect
-    const canvas = document.getElementById('bigbang');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    function initParticles() {
-      particles = [];
-      for (let i = 0; i < 400; i++) {
-        const angle = Math.random() * 2 * Math.PI;
-        const speed = Math.random() * 6 + 1;
-        particles.push({
-          x: canvas.width/2,
-          y: canvas.height/2,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          radius: Math.random() * 2 + 1,
-          color: `hsl(${Math.random()*360}, 100%, 70%)`,
-          life: Math.random() * 100 + 50
-        });
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.life--;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-        if (p.life <= 0) particles.splice(i,1);
-      });
-      requestAnimationFrame(animate);
-    }
-
-    initParticles();
-    animate();
-  </script>
 </body>
 </html>
+
