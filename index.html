@@ -1,281 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Large-Scale Structure of Spacetime – Reading Group</title>
+  <meta charset="UTF-8">
+  <title>The Large-Scale Structure of Spacetime</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #eee;
+      padding: 0;
+      font-family: "Georgia", serif;
+      color: white;
       background: black;
       overflow-x: hidden;
     }
+
     header {
       text-align: center;
       padding: 2rem;
-      background: rgba(0,0,0,0.6);
-      position: relative;
-      z-index: 2;
-    }
-    header h1 {
       font-size: 2.5rem;
-      margin: 0;
-      color: #ffcc66;
-      text-shadow: 0 0 10px #ff9933;
     }
-    header h2 {
-      font-size: 1.3rem;
-      margin-top: .5rem;
-      color: #ccc;
-    }
+
     .container {
       max-width: 900px;
-      margin: 2rem auto;
+      margin: auto;
       padding: 1rem;
-      position: relative;
-      z-index: 2;
     }
-    .box {
-      background: rgba(0,0,0,0.6);
-      border: 1px solid #444;
-      border-radius: 5px;
+
+    .section {
+      background: rgba(0,0,0,0.7);
+      margin: 1rem 0;
       padding: 1rem;
-      margin-bottom: 1rem;
+      border-radius: 8px;
     }
-    .box h3 {
-      margin-top: 0;
-      color: #ffcc66;
-      border-bottom: 1px solid #555;
-      padding-bottom: .25rem;
-    }
-    .talk-list {
-      list-style: none;
-      padding: 0;
-    }
-    .talk-list li { margin-bottom: .75rem; }
-    .talk-date { font-style: italic; color: #aaa; margin-right: .5rem; }
-    .talk-title { font-weight: bold; color: #fff; }
+
     footer {
       text-align: center;
-      margin: 2rem 0;
-      color: #888;
-      font-size: .9rem;
-      z-index: 2;
-      position: relative;
+      padding: 1rem;
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
 
-    /* Starfield background */
-    .stars {
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background: transparent;
-      z-index: 0;
-      overflow:hidden;
+    /* Fade-in effect for site */
+    body > header, .container, footer {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 2s ease, transform 2s ease;
     }
-    .star {
-      position:absolute;
-      width:2px; height:2px;
-      background:white;
-      border-radius:50%;
-      animation: twinkle 2s infinite alternate;
-    }
-    @keyframes twinkle {
-      from {opacity:0.3;}
-      to {opacity:1;}
-    }
-
-    /* Floating equations/images */
-    .floaty {
-      position: fixed;
-      color: rgba(255,255,255,0.15);
-      z-index: 1;
-      pointer-events: none;
-      animation: floatEq linear infinite;
-    }
-    @keyframes floatEq {
-      0% {transform: translateX(-150%) translateY(0);}
-      100% {transform: translateX(150%) translateY(-120vh);}
-    }
-    .floaty img {
-      max-width: 180px;
-      opacity: 0.12;
-      filter: grayscale(100%);
+    body.show-content > header,
+    body.show-content > .container,
+    body.show-content > footer {
+      opacity: 1;
+      transform: scale(1);
     }
 
     /* Big Bang canvas */
     #bigbangCanvas {
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      z-index:9999;
-      background:black;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1000;
+      background: black;
+      transition: opacity 2s ease;
+    }
+    canvas#stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
     }
   </style>
-
-  <!-- MathJax -->
-  <script>
-    window.MathJax = {
-      tex: { inlineMath: [['\\(','\\)']] },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-  <!-- Big Bang Canvas -->
   <canvas id="bigbangCanvas"></canvas>
+  <canvas id="stars"></canvas>
 
-  <!-- Stars -->
-  <div class="stars"></div>
-
-  <header>
-    <h1>The Large-Scale Structure of Spacetime</h1>
-    <h2>Reading Group – Fall 2025</h2>
-  </header>
-
+  <header>The Large-Scale Structure of Spacetime</header>
   <div class="container">
-    <div class="box">
-      <h3>What</h3>
-      <p>This is the webpage for the Fall 2025 Reading Group on <em>The Large-Scale Structure of Spacetime</em> by Hawking and Ellis. We are McGill students studying the text with Professor A. We meet twice a week, on <strong>Mondays</strong> and <strong>Fridays</strong>. Each meeting, one of us presents a section, and we take turns. Anyone is welcome to join.</p>
-      <p><a href="The Large-Scale Structure of Spacetime.pdf" target="_blank">📖 Download the book (PDF)</a></p>
+    <div class="section">
+      <h2>Overview</h2>
+      <p>
+        Welcome to our collaborative exploration of <em>The Large-Scale Structure of Spacetime</em> 
+        by Hawking and Ellis. We will journey through the mathematics and physics 
+        of general relativity and cosmology together.
+      </p>
+      <p>
+        📖 <a href="The Large-Scale Structure of Spacetime.pdf" style="color:lightblue;">Download the book (PDF)</a>
+      </p>
     </div>
 
-    <div class="box">
-      <h3>Where we are in the book</h3>
-      <p>Currently working through <em>Chapter 1: Basic Concepts of Spacetime Geometry</em>.</p>
+    <div class="section">
+      <h2>Progress</h2>
+      <p>We’re currently working through Chapter 1: Mathematical Preliminaries.</p>
     </div>
 
-    <div class="box">
-      <h3>Next Talks</h3>
-      <ul class="talk-list">
-        <li>
-          <span class="talk-date">09/01/2025</span>
-          <span class="talk-title">Manifolds and Lorentz Metrics</span><br/>
-          <em>Speaker:</em> Gershon Levin<br/>
-          <em>Description:</em> Introduction to differentiable manifolds and Lorentzian metrics.
-        </li>
-      </ul>
-    </div>
-
-    <div class="box">
-      <h3>Past Talks</h3>
-      <ul class="talk-list">
-        <li>
-          <span class="talk-date">08/25/2025</span>
-          <span class="talk-title">Motivation: Why Study Spacetime Structure?</span><br/>
-          <em>Speaker:</em> Friend’s Name<br/>
-          <em>Description:</em> A broad overview of the subject, historical context, and main questions.
-        </li>
-      </ul>
+    <div class="section">
+      <h2>Visuals</h2>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Penrose_Diagram_Schwarzschild.png" alt="Penrose Diagram" width="100%">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Einstein_eqn.png" alt="Einstein Equation" width="100%">
     </div>
   </div>
 
-  <footer>
-    Contact: <a href="mailto:spacetime@mcgill.ca">spacetime@mcgill.ca</a>
-  </footer>
+  <footer>Made with 🌌 for mathematical physicists</footer>
 
- <script>
-  // STARFIELD
-  const starsContainer = document.querySelector('.stars');
-  for (let i = 0; i < 200; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    s.style.top = Math.random()*100+'%';
-    s.style.left = Math.random()*100+'%';
-    s.style.animationDuration = (1+Math.random()*2)+'s';
-    starsContainer.appendChild(s);
-  }
+  <script>
+    // --- Big Bang effect ---
+    const canvas = document.getElementById("bigbangCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-  // FLOATING MATH EQUATIONS
-  const mathEquations = [
-    "\\( G_{\\mu\\nu} + \\Lambda g_{\\mu\\nu} = 8 \\pi T_{\\mu\\nu} \\)",
-    "\\( S = \\int (R - 2\\Lambda) \\sqrt{-g}\\, d^4x \\)",
-    "\\( ds^2 = -dt^2 + a(t)^2 d\\Sigma^2 \\)",
-    "\\( R_{\\mu\\nu\\rho\\sigma} \\)",
-    "\\( R = g^{\\mu\\nu}R_{\\mu\\nu} \\)",
-    "\\( \\Gamma^{k}_{ij} = \\tfrac{1}{2} g^{kl}(\\partial_i g_{jl}+\\partial_j g_{il}-\\partial_l g_{ij}) \\)",
-    "\\( K(u,v) = \\frac{\\langle R(u,v)v,u \\rangle}{\\|u\\wedge v\\|^2} \\)",
-    "\\( \\nabla_{\\dot{\\gamma}} \\dot{\\gamma} = 0 \\)"
-  ];
-  for (let i = 0; i < 6; i++) {
-    const eq = document.createElement('div');
-    eq.className = 'floaty';
-    eq.style.top = Math.random()*80 + '%';
-    eq.style.left = Math.random()*80 + '%';
-    eq.style.animationDuration = (70 + Math.random()*80) + 's';
-    eq.innerHTML = mathEquations[Math.floor(Math.random()*mathEquations.length)];
-    document.body.appendChild(eq);
-  }
+    const starsCanvas = document.getElementById("stars");
+    const starsCtx = starsCanvas.getContext("2d");
+    starsCanvas.width = window.innerWidth;
+    starsCanvas.height = window.innerHeight;
 
-  // FLOATING IMAGES
-  const images = ["Black_hole.jpg","Curved.jpg","Diagram.jpg"];
-  for (let i = 0; i < 3; i++) {
-    const img = document.createElement('div');
-    img.className = 'floaty';
-    img.style.top = Math.random()*80 + '%';
-    img.style.left = Math.random()*80 + '%';
-    img.style.animationDuration = (80 + Math.random()*80) + 's';
-    img.innerHTML = `<img src="${images[Math.floor(Math.random()*images.length)]}" alt="physics image"/>`;
-    document.body.appendChild(img);
-  }
+    let particles = [];
+    let permanentStars = [];
 
-  // BIG BANG CANVAS ANIMATION
-  const canvas = document.getElementById("bigbangCanvas");
-  const ctx = canvas.getContext("2d");
-  let particles = [];
-  let W, H;
-  function resizeCanvas(){
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  window.addEventListener("resize", resizeCanvas);
-  resizeCanvas();
+    class Particle {
+      constructor(x, y, angle, speed, size, color) {
+        this.x = x;
+        this.y = y;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.size = size;
+        this.color = color;
+        this.alpha = 1;
+        this.targetStar = null;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vx *= 0.98; // slow down
+        this.vy *= 0.98;
+        this.alpha -= 0.003;
+        if (this.alpha < 0) this.alpha = 0;
+      }
+      draw(ctx) {
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
 
-  function initParticles(){
-    particles = [];
-    for(let i=0; i<1000; i++){
-      const angle = Math.random()*2*Math.PI;
-      const speed = Math.random()*3+0.5;
-      particles.push({
-        x: W/2, y: H/2,
-        vx: Math.cos(angle)*speed,
-        vy: Math.sin(angle)*speed,
-        r: Math.random()*2+1,
-        alpha: 1
+    // Create explosion
+    function createBigBang() {
+      let centerX = canvas.width / 2;
+      let centerY = canvas.height / 2;
+      for (let i = 0; i < 400; i++) {
+        let angle = Math.random() * Math.PI * 2;
+        let speed = Math.random() * 10 + 2;
+        let size = Math.random() * 2 + 1;
+        let color = "white";
+        particles.push(new Particle(centerX, centerY, angle, speed, size, color));
+      }
+    }
+
+    // Draw permanent stars in background
+    function drawStars() {
+      starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+      permanentStars.forEach(s => {
+        starsCtx.fillStyle = "white";
+        starsCtx.beginPath();
+        starsCtx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+        starsCtx.fill();
       });
     }
-  }
 
-  function animate(){
-    ctx.fillStyle = "rgba(0,0,0,0.3)";
-    ctx.fillRect(0,0,W,H);
-    particles.forEach(p=>{
-      // Expansion effect: accelerate outward a little
-      p.vx *= 1.01;
-      p.vy *= 1.01;
+    function animate() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach((p, index) => {
+        p.update();
+        p.draw(ctx);
 
-      p.x += p.vx;
-      p.y += p.vy;
+        // When particle slows, freeze into background stars
+        if (p.alpha <= 0.1 && !p.added) {
+          permanentStars.push({x: p.x, y: p.y, size: p.size*0.7});
+          p.added = true;
+        }
+      });
+      drawStars();
+      requestAnimationFrame(animate);
+    }
 
-      p.alpha -= 0.008;
-      ctx.fillStyle = "rgba(255,255,255,"+p.alpha+")";
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
-      ctx.fill();
+    createBigBang();
+    animate();
+
+    // Reveal site after explosion
+    setTimeout(()=>{
+      document.body.classList.add("show-content");
+      canvas.style.opacity = "0";
+      setTimeout(()=>{ canvas.style.display="none"; }, 2000);
+    }, 3000);
+
+    window.addEventListener("resize", ()=>{
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      starsCanvas.width = window.innerWidth;
+      starsCanvas.height = window.innerHeight;
     });
-    requestAnimationFrame(animate);
-  }
-
-  initParticles();
-  animate();
-
-  // Fade out the Big Bang after 5s
-  setTimeout(()=>{ canvas.style.display="none"; },5000);
-</script>
-
+  </script>
 </body>
 </html>
 
