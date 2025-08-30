@@ -238,7 +238,7 @@
     document.body.appendChild(img);
   }
 
-  // BIG BANG CANVAS ANIMATION
+    // BIG BANG CANVAS ANIMATION
   const canvas = document.getElementById("bigbangCanvas");
   const ctx = canvas.getContext("2d");
   let particles = [];
@@ -249,10 +249,10 @@
   }
   window.addEventListener("resize", resizeCanvas);
   resizeCanvas();
-
+  
   function initParticles(){
     particles = [];
-    for(let i=0; i<1000; i++){
+    for(let i=0; i<800; i++){
       const angle = Math.random()*2*Math.PI;
       const speed = Math.random()*3+0.5;
       particles.push({
@@ -260,23 +260,30 @@
         vx: Math.cos(angle)*speed,
         vy: Math.sin(angle)*speed,
         r: Math.random()*2+1,
-        alpha: 1
+        alpha: 1,
+        survived: false
       });
     }
   }
-
+  
   function animate(){
-    ctx.fillStyle = "rgba(0,0,0,0.3)";
+    ctx.fillStyle = "rgba(0,0,0,0.25)";
     ctx.fillRect(0,0,W,H);
     particles.forEach(p=>{
-      // Expansion effect: accelerate outward a little
+      // Expansion
       p.vx *= 1.01;
       p.vy *= 1.01;
-
       p.x += p.vx;
       p.y += p.vy;
-
-      p.alpha -= 0.008;
+  
+      if (!p.survived) {
+        p.alpha -= 0.01; // fade most away
+        if (Math.random() < 0.002) { 
+          // small chance particle "survives" to become a star
+          p.survived = true;
+          p.alpha = 1;
+        }
+      }
       ctx.fillStyle = "rgba(255,255,255,"+p.alpha+")";
       ctx.beginPath();
       ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
@@ -284,21 +291,37 @@
     });
     requestAnimationFrame(animate);
   }
-
+  
   initParticles();
   animate();
-
-   // Smoothly fade Big Bang into site
+  
+  // Transfer survivors into starfield
+  function particlesToStars(){
+    const starsContainer = document.querySelector('.stars');
+    particles.filter(p=>p.survived).forEach(p=>{
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.top = (p.y/H*100) + '%';
+      s.style.left = (p.x/W*100) + '%';
+      s.style.animationDuration = (1+Math.random()*2)+'s';
+      starsContainer.appendChild(s);
+    });
+  }
+  
+  // Smoothly fade Big Bang into site
   setTimeout(()=>{
-    document.body.classList.add("show-content"); // reveal site
-    canvas.style.opacity = "0"; // fade canvas out
-    setTimeout(()=>{ canvas.style.display="none"; }, 2000); // remove after fade
-  }, 3000); // wait 3s before site starts forming
+    particlesToStars(); // survivors become stars ✨
+    document.body.classList.add("show-content");
+    canvas.style.opacity = "0";
+    setTimeout(()=>{ canvas.style.display="none"; }, 2000);
+  }, 3000);
+
 
 </script>
 
 </body>
 </html>
+
 
 
 
