@@ -177,101 +177,108 @@
     Contact: <a href="mailto:spacetime@mcgill.ca">spacetime@mcgill.ca</a>
   </footer>
 
-  <script>
-    // STARFIELD
-    const starsContainer = document.querySelector('.stars');
-    for (let i = 0; i < 200; i++) {
-      const s = document.createElement('div');
-      s.className = 'star';
-      s.style.top = Math.random()*100+'%';
-      s.style.left = Math.random()*100+'%';
-      s.style.animationDuration = (1+Math.random()*2)+'s';
-      starsContainer.appendChild(s);
-    }
+ <script>
+  // STARFIELD
+  const starsContainer = document.querySelector('.stars');
+  for (let i = 0; i < 200; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.top = Math.random()*100+'%';
+    s.style.left = Math.random()*100+'%';
+    s.style.animationDuration = (1+Math.random()*2)+'s';
+    starsContainer.appendChild(s);
+  }
 
-    // FLOATING MATH EQUATIONS
-    const mathEquations = [
-      "\\( G_{\\mu\\nu} + \\Lambda g_{\\mu\\nu} = 8 \\pi T_{\\mu\\nu} \\)",
-      "\\( S = \\int (R - 2\\Lambda) \\sqrt{-g}\\, d^4x \\)",
-      "\\( ds^2 = -dt^2 + a(t)^2 d\\Sigma^2 \\)",
-      "\\( R_{\\mu\\nu\\rho\\sigma} \\)",
-      "\\( R = g^{\\mu\\nu}R_{\\mu\\nu} \\)",
-      "\\( \\Gamma^{k}_{ij} = \\tfrac{1}{2} g^{kl}(\\partial_i g_{jl}+\\partial_j g_{il}-\\partial_l g_{ij}) \\)",
-      "\\( K(u,v) = \\frac{\\langle R(u,v)v,u \\rangle}{\\|u\\wedge v\\|^2} \\)",
-      "\\( \\nabla_{\\dot{\\gamma}} \\dot{\\gamma} = 0 \\)"
-    ];
-    for (let i = 0; i < 6; i++) {
-      const eq = document.createElement('div');
-      eq.className = 'floaty';
-      eq.style.top = Math.random()*80 + '%';
-      eq.style.left = Math.random()*80 + '%';
-      eq.style.animationDuration = (70 + Math.random()*80) + 's';
-      eq.innerHTML = mathEquations[Math.floor(Math.random()*mathEquations.length)];
-      document.body.appendChild(eq);
-    }
+  // FLOATING MATH EQUATIONS
+  const mathEquations = [
+    "\\( G_{\\mu\\nu} + \\Lambda g_{\\mu\\nu} = 8 \\pi T_{\\mu\\nu} \\)",
+    "\\( S = \\int (R - 2\\Lambda) \\sqrt{-g}\\, d^4x \\)",
+    "\\( ds^2 = -dt^2 + a(t)^2 d\\Sigma^2 \\)",
+    "\\( R_{\\mu\\nu\\rho\\sigma} \\)",
+    "\\( R = g^{\\mu\\nu}R_{\\mu\\nu} \\)",
+    "\\( \\Gamma^{k}_{ij} = \\tfrac{1}{2} g^{kl}(\\partial_i g_{jl}+\\partial_j g_{il}-\\partial_l g_{ij}) \\)",
+    "\\( K(u,v) = \\frac{\\langle R(u,v)v,u \\rangle}{\\|u\\wedge v\\|^2} \\)",
+    "\\( \\nabla_{\\dot{\\gamma}} \\dot{\\gamma} = 0 \\)"
+  ];
+  for (let i = 0; i < 6; i++) {
+    const eq = document.createElement('div');
+    eq.className = 'floaty';
+    eq.style.top = Math.random()*80 + '%';
+    eq.style.left = Math.random()*80 + '%';
+    eq.style.animationDuration = (70 + Math.random()*80) + 's';
+    eq.innerHTML = mathEquations[Math.floor(Math.random()*mathEquations.length)];
+    document.body.appendChild(eq);
+  }
 
-    // FLOATING IMAGES
-    const images = ["Black_hole.jpg","Curved.jpg","Diagram.jpg"];
-    for (let i = 0; i < 3; i++) {
-      const img = document.createElement('div');
-      img.className = 'floaty';
-      img.style.top = Math.random()*80 + '%';
-      img.style.left = Math.random()*80 + '%';
-      img.style.animationDuration = (80 + Math.random()*80) + 's';
-      img.innerHTML = `<img src="${images[Math.floor(Math.random()*images.length)]}" alt="physics image"/>`;
-      document.body.appendChild(img);
-    }
+  // FLOATING IMAGES
+  const images = ["Black_hole.jpg","Curved.jpg","Diagram.jpg"];
+  for (let i = 0; i < 3; i++) {
+    const img = document.createElement('div');
+    img.className = 'floaty';
+    img.style.top = Math.random()*80 + '%';
+    img.style.left = Math.random()*80 + '%';
+    img.style.animationDuration = (80 + Math.random()*80) + 's';
+    img.innerHTML = `<img src="${images[Math.floor(Math.random()*images.length)]}" alt="physics image"/>`;
+    document.body.appendChild(img);
+  }
 
-    // BIG BANG CANVAS ANIMATION
-    const canvas = document.getElementById("bigbangCanvas");
-    const ctx = canvas.getContext("2d");
-    let particles = [];
-    let W, H;
-    function resizeCanvas(){
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
+  // BIG BANG CANVAS ANIMATION
+  const canvas = document.getElementById("bigbangCanvas");
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+  let W, H;
+  function resizeCanvas(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
 
-    function initParticles(){
-      particles = [];
-      for(let i=0; i<1000; i++){
-        const angle = Math.random()*2*Math.PI;
-        const speed = Math.random()*4+1;
-        particles.push({
-          x: W/2, y: H/2,
-          vx: Math.cos(angle)*speed,
-          vy: Math.sin(angle)*speed,
-          r: Math.random()*2+1,
-          alpha: 1
-        });
-      }
-    }
-
-    function animate(){
-      ctx.fillStyle = "rgba(0,0,0,0.3)";
-      ctx.fillRect(0,0,W,H);
-      particles.forEach(p=>{
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha -= 0.01;
-        ctx.fillStyle = "rgba(255,255,255,"+p.alpha+")";
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
-        ctx.fill();
+  function initParticles(){
+    particles = [];
+    for(let i=0; i<1000; i++){
+      const angle = Math.random()*2*Math.PI;
+      const speed = Math.random()*3+0.5;
+      particles.push({
+        x: W/2, y: H/2,
+        vx: Math.cos(angle)*speed,
+        vy: Math.sin(angle)*speed,
+        r: Math.random()*2+1,
+        alpha: 1
       });
-      requestAnimationFrame(animate);
     }
+  }
 
-    initParticles();
-    animate();
+  function animate(){
+    ctx.fillStyle = "rgba(0,0,0,0.3)";
+    ctx.fillRect(0,0,W,H);
+    particles.forEach(p=>{
+      // Expansion effect: accelerate outward a little
+      p.vx *= 1.01;
+      p.vy *= 1.01;
 
-    // Fade out the Big Bang after 4s
-    setTimeout(()=>{ canvas.style.display="none"; },4000);
-  </script>
+      p.x += p.vx;
+      p.y += p.vy;
+
+      p.alpha -= 0.008;
+      ctx.fillStyle = "rgba(255,255,255,"+p.alpha+")";
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  initParticles();
+  animate();
+
+  // Fade out the Big Bang after 5s
+  setTimeout(()=>{ canvas.style.display="none"; },5000);
+</script>
+
 </body>
 </html>
+
 
 
 
