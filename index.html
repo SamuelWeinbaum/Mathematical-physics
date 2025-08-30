@@ -113,6 +113,22 @@
       z-index:9999;
       background:black;
     }
+
+        /* Hide site content at start */
+    body > header, .container, footer {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 2s ease, transform 2s ease;
+    }
+    body.show-content > header,
+    body.show-content > .container,
+    body.show-content > footer {
+      opacity: 1;
+      transform: scale(1);
+    }
+    #bigbangCanvas {
+      transition: opacity 2s ease;
+    }
   </style>
 
   <!-- MathJax -->
@@ -272,12 +288,18 @@
   initParticles();
   animate();
 
-  // Fade out the Big Bang after 5s
-  setTimeout(()=>{ canvas.style.display="none"; },5000);
+   // Smoothly fade Big Bang into site
+  setTimeout(()=>{
+    document.body.classList.add("show-content"); // reveal site
+    canvas.style.opacity = "0"; // fade canvas out
+    setTimeout(()=>{ canvas.style.display="none"; }, 2000); // remove after fade
+  }, 3000); // wait 3s before site starts forming
+
 </script>
 
 </body>
 </html>
+
 
 
 
